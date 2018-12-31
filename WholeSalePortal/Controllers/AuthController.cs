@@ -55,6 +55,9 @@ namespace WholeSalePortal.Controllers
         {
             //may put identity server logic here
 
+            throw new Exception("Test code for error handling");
+
+
             var userFromRepo = await _repo.Login(userForLoginDto.UserName.ToLower(), userForLoginDto.Password);
             //once user past the stage above, then we need to start building out the token
 

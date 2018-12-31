@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -8,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Net;
 using System.Text;
 using WholeSalePortal.Data;
+using WholeSalePortal.Helpers;
 using WholeSalePortal.Models;
 
 namespace WholeSalePortal
@@ -63,7 +67,25 @@ namespace WholeSalePortal
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                //this sets up the global exception handler mechanism in our middleware pipeline so we dont have to put try catches everywhere
+                app.UseExceptionHandler(builder=>
+                {
+                    //this error will be created in the context of our http responses and handle them globally
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                       
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.Response.AddApplicationError(error.Error.Message);
+                            //just note that, when this response comes back, we did not add any CORS. this message doesnt have any CORS headers applied.
+                            //we need to extend the response so we can add our own custom. so we will add an extension method 
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
                 app.UseHsts();
             }
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
