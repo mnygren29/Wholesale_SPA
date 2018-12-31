@@ -26,4 +26,9 @@ export class AuthService {
       })
       );
   }
+
+  register(model: any) {
+    //this will return an observable. so our register component needs to subscribe to this.
+    return this.http.post(this.baseUrl + 'register', model);
+  }
 }

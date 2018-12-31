@@ -1,4 +1,7 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,EventEmitter,Output } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
+
+
 
 @Component({
   selector: 'app-register',
@@ -7,19 +10,34 @@ import { Component, OnInit,Input } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
-  @Input() valuesFromHome: any;
+  //@Input() valuesFromHome: any;
+  //with output, it always emits events, so we need a new instance of eventemitter
+  //so always 4 parts when adding an output property
+  //1. Assign new output propery to eventemitter
+  
+  @Output() cancelRegister = new EventEmitter();
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
   }
 
   register() {
-    console.log(this.model);
+    this.authService.register(this.model).subscribe(() => {
+      console.log('regitration successful');
+    }, error => {
+
+      console.log(error);
+    }
+    );
   }
 
 
   cancel() {
+    //2. specify what we want to emit to parent component
+    this.cancelRegister.emit(false);
+    //3. next, go to the parent component and add the reference to this in the html.
+    //4. finally go to the component of the parent 
     console.log('canceled');
   }
 
