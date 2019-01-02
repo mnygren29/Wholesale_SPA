@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "../../identityserver4/IdentityServer4.Samples-master/IdentityServer4.Samples-master/Quickstarts/2_ResourceOwnerPasswords/src/QuickstartIdentityServer/QuickstartIdentityServer.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
