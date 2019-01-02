@@ -30,11 +30,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="WholeSale-SPA\src\app\routes.ts" />
     <None Remove="WholeSale-SPA\src\app\_services\error.interceptor.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="WholeSale-SPA\src\app\routes.ts" />
     <TypeScriptCompile Include="WholeSale-SPA\src\app\_services\error.interceptor.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="WholeSale-SPA\src\app\_guards\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
