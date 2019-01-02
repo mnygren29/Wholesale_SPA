@@ -34,6 +34,7 @@ namespace WholeSalePortal
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+            services.AddTransient<Seed>();
             //equivalent to singelton but within scope and within web request
             services.AddScoped<IAuthRepository,AuthRepository>();
             //need this if we want to use identity server token against Authorize attribute in controllers
@@ -59,7 +60,7 @@ namespace WholeSalePortal
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,Seed seeder)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +89,7 @@ namespace WholeSalePortal
                 });
                 app.UseHsts();
             }
+        //    seeder.SeedUsers();
             app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             //for controllers that have authorized attribute
             app.UseAuthentication();
