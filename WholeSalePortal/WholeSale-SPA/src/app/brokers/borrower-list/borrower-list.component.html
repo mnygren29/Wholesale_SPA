@@ -1,0 +1,18 @@
+<!-- <div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-2 col-md-3 col-sm-6">
+      <p *ngFor="let user of users">{{user.aboutBroker}}</p>
+      <app-member-card [user]="user">{{user.knownAs}}</app-member-card>
+    </div>
+  </div>
+</div>
+ -->
+
+ <div class="container mt-5">
+  <div class="row">
+    <div *ngFor="let user of users" class="col-lg-2 col-md-3 col-sm-6">
+      <!--user in square brackets represents input property from card component-->
+      <app-broker-card [user]="user"></app-broker-card>
+    </div>
+  </div>
+</div>

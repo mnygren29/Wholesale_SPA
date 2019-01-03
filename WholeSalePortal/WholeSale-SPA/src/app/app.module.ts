@@ -1,3 +1,4 @@
+import { BrokerCardComponent } from './brokers/broker-card/broker-card.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,26 +13,39 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AlertifyService } from './_services/alertify.service';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import { ListsComponent } from './lists/lists.component';
-import { BorrowerListComponent } from './borrower-list/borrower-list.component';
+import { BorrowerListComponent } from './brokers/borrower-list/borrower-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
+import { JwtModule } from '@auth0/angular-jwt';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,   
-    ValuesComponent, HomeComponent, RegisterComponent, ListsComponent, BorrowerListComponent, MessagesComponent
+    NavComponent,
+    ValuesComponent, HomeComponent, RegisterComponent, ListsComponent, BorrowerListComponent, MessagesComponent,
+    BrokerCardComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     BsDropdownModule.forRoot(),
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+  JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:64656'],
+        blacklistedRoutes: ['localhost:64656/api/auth']
+      }
+    })
   ],
   providers: [
     AuthService,

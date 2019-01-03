@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { BorrowerListComponent } from './borrower-list/borrower-list.component';
+import { BorrowerListComponent } from './brokers/borrower-list/borrower-list.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
 import { AuthGuard } from './_guards/auth.guard';
