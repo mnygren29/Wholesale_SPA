@@ -20,6 +20,7 @@ import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { BrokerDetailComponent } from './brokers/broker-detail/broker-detail.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -31,7 +32,7 @@ export function tokenGetter() {
     AppComponent,
     NavComponent,
     ValuesComponent, HomeComponent, RegisterComponent, ListsComponent, BorrowerListComponent, MessagesComponent,
-    BrokerCardComponent
+    BrokerCardComponent,BrokerDetailComponent
   ],
   imports: [
     BrowserModule,

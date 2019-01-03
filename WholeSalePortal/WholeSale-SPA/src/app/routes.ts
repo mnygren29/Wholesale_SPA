@@ -4,6 +4,7 @@ import { BorrowerListComponent } from './brokers/borrower-list/borrower-list.com
 import { MessagesComponent } from './messages/messages.component';
 import { ListsComponent } from './lists/lists.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { BrokerDetailComponent } from './brokers/broker-detail/broker-detail.component';
 //import { AuthGuard } from './_guards/auth.guard';
 
 export const appRoutes: Routes = [
@@ -22,6 +23,7 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'members', component: BorrowerListComponent },
+      { path: 'members/:id', component: BrokerDetailComponent },
       { path: 'messages', component: MessagesComponent },
       { path: 'lists', component: ListsComponent },
     ]

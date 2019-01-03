@@ -10,6 +10,7 @@ namespace WholeSalePortal.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForListDto>();
+            CreateMap<User, UserForDetailedDto>();
            /*  CreateMap<User, UserForListDto>()
                 .ForMember(dest => dest.PhotoUrl, opt => {
                     opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
