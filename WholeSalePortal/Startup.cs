@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -15,6 +16,7 @@ using System.Text;
 using WholeSalePortal.Data;
 using WholeSalePortal.Helpers;
 using WholeSalePortal.Models;
+using WholeSalePortal.Repository;
 
 namespace WholeSalePortal
 {
@@ -34,9 +36,11 @@ namespace WholeSalePortal
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddCors();
+            services.AddAutoMapper();
             services.AddTransient<Seed>();
             //equivalent to singelton but within scope and within web request
             services.AddScoped<IAuthRepository,AuthRepository>();
+            services.AddScoped<IBrokerRepository, BrokerRepository>();
             //need this if we want to use identity server token against Authorize attribute in controllers
             //authentication scheme
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

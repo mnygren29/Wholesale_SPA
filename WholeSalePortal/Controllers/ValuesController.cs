@@ -9,7 +9,7 @@ using WholeSalePortal.Models;
 
 namespace WholeSalePortal.Controllers
 {
-  // [Authorize]
+  [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
