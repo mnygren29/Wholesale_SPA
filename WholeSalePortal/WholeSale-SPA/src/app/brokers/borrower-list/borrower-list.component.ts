@@ -18,21 +18,21 @@ export class BorrowerListComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.loadUsers();
-    //this.route.data.subscribe(data => {
-    //  this.users = data['users'];
-    //  console.log(this.users);
-    //  console.log('k');
-    //});
+   // this.loadUsers();
+    this.route.data.subscribe(data => {
+      this.users = data['users'];
+      console.log(this.users);
+      console.log('k');
+    });
   }
 
-   loadUsers() {
-     this.userService.getUsers().subscribe((users: User[]) => {
-       this.users = users;
-     }, error => {
-       this.alertify.error(error);
-       console.log(error);
-     });
-   }
+   //loadUsers() {
+   //  this.userService.getUsers().subscribe((users: User[]) => {
+   //    this.users = users;
+   //  }, error => {
+   //    this.alertify.error(error);
+   //    console.log(error);
+   //  });
+   //}
 
 }
